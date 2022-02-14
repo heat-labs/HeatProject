@@ -1,0 +1,8 @@
+[workspace]
+members = [
+    "lib_heat_spec",
+    "libvirt",
+    "heat_runtime",
+    "heat_archive",
+    "heatc"
+]

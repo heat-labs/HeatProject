@@ -1,0 +1,13 @@
+[package]
+name = "libvirt"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+lib_heat_spec = { path = "../lib_heat_spec" }
+uuid = { version = "0.8.2", features = ["v4"]  }
+bit-vec = "0.6.3"
+byteorder = "1"
+num-traits = "0.2"

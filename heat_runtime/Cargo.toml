@@ -1,0 +1,13 @@
+[package]
+name = "heat_runtime"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+libvirt = { path = "../libvirt" }
+lib_heat_spec = { path = "../lib_heat_spec" }
+clap = { version = "3.0.13", features = ["derive"] }
+tar = "0.4"
+uuid = { version = "0.8.2", features = ["v4"]  }
