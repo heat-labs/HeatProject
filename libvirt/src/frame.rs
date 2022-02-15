@@ -17,6 +17,9 @@ pub struct Frame {
     /// instructions local to the frame
     pub instructions: Vec<Instruction>,
 
+    /// constant pool stores constant `VirtualObjects` that are local to the frame
+    pub constant_pool: Vec<types::VirtualObject>,
+
     /// local is a vector that holds variables local to the frame
     pub local: Vec<types::VirtualObject>,
 
@@ -49,6 +52,7 @@ impl Frame {
         Frame {
             address: uuid,
             instructions: Default::default(),
+            constant_pool: Default::default(),
             local: Default::default(),
             stack: Default::default(),
             operand_stack: Default::default(),
