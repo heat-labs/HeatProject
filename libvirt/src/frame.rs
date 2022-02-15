@@ -12,6 +12,7 @@ pub type FrameAddress = Uuid;
 pub struct Frame {
     pub address: FrameAddress,
     pub instructions: Vec<Instruction>,
+    pub local: Vec<types::VirtualObject>,
     pub stack: Vec<types::VirtualObject>,
     pub operand_stack: Vec<types::VirtualObject>,
     pub pc: u64,
@@ -22,6 +23,7 @@ impl Default for Frame {
         Frame{
             address: Uuid::new_v4(),
             instructions: Default::default(),
+            local: Default::default(),
             stack: Default::default(),
             operand_stack: Default::default(),
             pc: 0
@@ -35,6 +37,7 @@ impl Frame {
         Frame {
             address: uuid,
             instructions: Default::default(),
+            local: Default::default(),
             stack: Default::default(),
             operand_stack: Default::default(),
             pc: 0
