@@ -20,6 +20,7 @@ pub const LOAD_U32: u64 = 0x33;  // Load u32 into stack
 pub const LOAD_U64: u64 = 0x34;  // Load u64 into stack
 
 pub const STORE: u64 = 0x40; // Store from operand stack
+pub const LOCAL_LOAD: u64 = 0x41; // Load an object from stack to local
 
 pub const ADD_U8: u64 = 0x50;   // Pop 2 objects from stack and add them together u8
 pub const ADD_U16: u64 = 0x51;  // Pop 2 objects from stack and add them together u16
