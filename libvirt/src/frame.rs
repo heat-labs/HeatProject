@@ -10,11 +10,23 @@ pub type FrameAddress = Uuid;
 /// * have their own stack
 /// * have no dependency to any other frame other than the frame's children
 pub struct Frame {
+
+    /// unique identifier for the frame
     pub address: FrameAddress,
+
+    /// instructions local to the frame
     pub instructions: Vec<Instruction>,
+
+    /// local is a vector that holds variables local to the frame
     pub local: Vec<types::VirtualObject>,
+
+    /// stack stores `VirtualObjects` that are meant to be used/consumed by instructions
     pub stack: Vec<types::VirtualObject>,
+
+    /// operand stack is stack which stores results of instructions such as ADD_U8, SUB_U16
     pub operand_stack: Vec<types::VirtualObject>,
+
+    /// points to the current instruction
     pub pc: u64,
 }
 
