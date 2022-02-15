@@ -38,6 +38,7 @@ impl Default for Frame {
         Frame{
             address: Uuid::new_v4(),
             instructions: Default::default(),
+            constant_pool: Default::default(),
             local: Default::default(),
             stack: Default::default(),
             operand_stack: Default::default(),
