@@ -81,6 +81,11 @@ impl Interpreter {
                     let operand: VirtualObject = frame.get_front_in_op_stack(0).unwrap().clone();
                     frame.stack.push(operand);
                 }
+                opcode::LOCAL_LOAD => {
+                    let obj = frame.get_front_in_stack(0).unwrap();
+                    let index = i.arg1;
+                    frame.local[index as usize] = obj.clone();
+                }
                 opcode::ADD_U8 => {
                     let val1 = frame.get_front_in_stack(0).unwrap();
                     let val2 = frame.get_front_in_stack(1).unwrap();
