@@ -83,8 +83,9 @@ impl Interpreter {
                 }
                 opcode::LOCAL_LOAD => {
                     let obj = frame.get_front_in_stack(0).unwrap();
+                    let cloned_obj = obj.clone();
                     let index = i.arg1;
-                    frame.local[index as usize] = obj.clone();
+                    frame.local.insert(index as usize, cloned_obj);
                 }
                 opcode::ADD_U8 => {
                     let val1 = frame.get_front_in_stack(0).unwrap();
@@ -383,6 +384,25 @@ mod tests {
         }
     }
 
+    #[test]
+    /// Performs LOCAL_LOAD on `VirtualObjects` in stack
+    fn interpreter_frame_local_load() {
+        let interpreter = Interpreter::new(Constraints::new_none());
+        let mut frame = Frame::default();
+        frame.local = Vec::with_capacity(1);
+
+        frame.instructions.push(Instruction{
+            opcode: opcode::LOCAL_LOAD,
+            arg1: 0,
+            arg2: 0,
+            arg3: 0
+        });
+        frame.stack.push(VirtualObject::new_max(HType::U8));
+
+        interpreter.execute_frame(&mut frame);
+
+        assert_eq!(frame.local.get(0).unwrap().get_u8(), u8::MAX, "local 1 is not equal to VirtualObject u8 with MAX value");
+    }
 
     #[test]
     /// Performs ADD_[HType] on `VirtualObjects` in operand stack
