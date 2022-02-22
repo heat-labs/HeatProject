@@ -66,15 +66,16 @@ impl Frame {
     /// ## Examples
     /// ```
     /// use libvirt::frame::Frame;
+    /// use lib_heat_spec::h_type::HType;
     ///
     /// // use the default frame
     /// let mut frame: Frame = Default::default();
     ///
     /// // allocate a bool inside the stack
-    /// frame.AllocateInStack(HType::Bool);
+    /// frame.allocate_in_stack(HType::Bool);
     /// assert_eq!(frame.stack.len(), 1);
     ///
-    /// let obj = frame.stack.pop()?;
+    /// let obj = frame.stack.pop().unwrap();
     /// assert_eq!(obj.data_type, HType::Bool);
     /// assert_eq!(obj.data.capacity(), 1);
     /// ```
