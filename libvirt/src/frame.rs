@@ -49,13 +49,13 @@ impl Default for Frame {
 
 impl Frame {
 
-    pub fn new(uuid: Uuid) -> Frame {
+    pub fn new(uuid: Uuid, local_max: u16, stack_max: u16) -> Frame {
         Frame {
             address: uuid,
             instructions: Default::default(),
             constant_pool: Default::default(),
-            local: Default::default(),
-            stack: Default::default(),
+            local: Vec::with_capacity(local_max as usize),
+            stack: Vec::with_capacity(stack_max as usize),
             operand_stack: Default::default(),
             pc: 0
         }
