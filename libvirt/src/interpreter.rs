@@ -48,6 +48,13 @@ impl Interpreter {
                     let result = VirtualObject::from(!obj.get_bool());
                     frame.operand_stack.push(result)
                 }
+                opcode::AND => {
+                    let obj_1 = frame.get_front_in_stack(0).unwrap();
+                    let obj_2 = frame.get_front_in_stack(1).unwrap();
+
+                    let result = VirtualObject::from(obj_1.get_bool() && obj_2.get_bool());
+                    frame.operand_stack.push(result)
+                }
                 opcode::LOAD_BOOL => {
                     let val = frame.get_mut_front_in_stack(0).unwrap();
                     if val.data_type != HType::Bool {
