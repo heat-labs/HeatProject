@@ -37,6 +37,12 @@ impl Interpreter {
                 opcode::NEW_U64 => {
                     frame.allocate_in_stack(HType::U64);
                 }
+                opcode::EQUAL => {
+                    let obj_1 = frame.get_front_in_stack(0).unwrap();
+                    let obj_2 = frame.get_front_in_stack(1).unwrap();
+                    let result = VirtualObject::from(obj_1 == obj_2);
+                    frame.operand_stack.push(result);
+                }
                 opcode::LOAD_BOOL => {
                     let val = frame.get_mut_front_in_stack(0).unwrap();
                     if val.data_type != HType::Bool {
