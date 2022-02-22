@@ -192,4 +192,21 @@ mod tests {
         assert_eq!(vobj.get_u64(), u64::MAX);
     }
 
+    #[test]
+    fn virtual_object_partial_equality() {
+        // comparing two same type & same value objects (true)
+        let obj_1 = VirtualObject::new_max(HType::U8);
+        let obj_2 = VirtualObject::new_max(HType::U8);
+        assert_eq!(obj_1, obj_2, "testing if comparing two same type & same value objects returns true");
+
+        // comparing two non-same type & same value objects (false)
+        let obj_1 = VirtualObject::from(2u8);
+        let obj_2 = VirtualObject::from(2u16);
+        assert_ne!(obj_1, obj_2, "testing if comparing two non-same type & same value objects returns false");
+
+        // comparing two non-same type & non-same value objects (false)
+        let obj_1 = VirtualObject::from(6u8);
+        let obj_2 = VirtualObject::from(2u16);
+        assert_ne!(obj_1, obj_2, "testing if comparing two non-same type & non-same value objects returns false");
+    }
 }
