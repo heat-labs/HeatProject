@@ -15,6 +15,12 @@ pub struct VirtualObject {
     pub data_type: HType,
 }
 
+impl PartialEq for VirtualObject {
+    fn eq(&self, other: &Self) -> bool {
+        return self.data_type == other.data_type && self.data == other.data;
+    }
+}
+
 impl From<bool> for VirtualObject {
     fn from(boolean: bool) -> VirtualObject {
         let mut obj = VirtualObject::new_empty(HType::Bool);
@@ -59,7 +65,7 @@ impl VirtualObject {
         VirtualObject { data, data_type }
     }
 
-
+    
     /// Create an VirtualObject with an empty `Vec<u8>` with the capacity required to hold the `HType`
     pub fn new_empty(data_type: HType) -> VirtualObject {
         let mut vec = Vec::<u8>::with_capacity(h_type::get_size(data_type));
