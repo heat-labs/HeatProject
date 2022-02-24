@@ -610,4 +610,85 @@ mod tests {
             assert_eq!(frame.operand_stack.pop().unwrap().get_u64(), i[2]);
         }
     }
+
+    #[test]
+    fn interpreter_frame_equal() {
+        let interpreter = Interpreter::new(Constraints::new_none());
+
+
+        // same types same value
+
+        let mut frame = Frame::default();
+        frame.instructions.push(Instruction{
+            opcode: opcode::EQUAL,
+            arg1: 0,
+            arg2: 0,
+            arg3: 0
+        });
+
+        frame.stack.push(VirtualObject::new_max(HType::U8));
+        frame.stack.push(VirtualObject::new_max(HType::U8));
+
+        interpreter.execute_frame(&mut frame);
+        assert_eq!(frame.operand_stack.pop().unwrap().get_bool(), true);
+
+        // non same types
+        let mut frame = Frame::default();
+        frame.instructions.push(Instruction{
+            opcode: opcode::EQUAL,
+            arg1: 0,
+            arg2: 0,
+            arg3: 0
+        });
+
+        frame.stack.push(VirtualObject::new_max(HType::U8));
+        frame.stack.push(VirtualObject::new_max(HType::U32));
+
+        interpreter.execute_frame(&mut frame);
+        assert_eq!(frame.operand_stack.pop().unwrap().get_bool(), false);
+
+        // non same types with same value
+        let mut frame = Frame::default();
+        frame.instructions.push(Instruction{
+            opcode: opcode::EQUAL,
+            arg1: 0,
+            arg2: 0,
+            arg3: 0
+        });
+
+        frame.stack.push(VirtualObject::from(2u8));
+        frame.stack.push(VirtualObject::from(2u32));
+
+        interpreter.execute_frame(&mut frame);
+        assert_eq!(frame.operand_stack.pop().unwrap().get_bool(), false);
+    }
+
+    #[test]
+    fn interpreter_frame_not() {
+        let interpreter = Interpreter::new(Constraints::new_none());
+        let mut frame = Frame::default();
+
+        frame.stack.push(VirtualObject::from(true));
+        frame.instructions.push(Instruction{
+            opcode: opcode::NOT,
+            arg1: 0,
+            arg2: 0,
+            arg3: 0
+        });
+        interpreter.execute_frame(&mut frame);
+        assert!(!frame.operand_stack.pop().unwrap().get_bool(), "checking if value turned into false");
+
+
+        let mut frame = Frame::default();
+
+        frame.stack.push(VirtualObject::from(false));
+        frame.instructions.push(Instruction{
+            opcode: opcode::NOT,
+            arg1: 0,
+            arg2: 0,
+            arg3: 0
+        });
+        interpreter.execute_frame(&mut frame);
+        assert!(frame.operand_stack.pop().unwrap().get_bool(), "checking if value turned into true")
+    }
 }
